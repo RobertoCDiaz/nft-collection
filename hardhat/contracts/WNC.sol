@@ -16,7 +16,7 @@ contract WNC is ERC721Enumerable, Ownable {
     /**
         Price for each NFT token.
      */
-    uint8 public _price = 0.005 ether;
+    uint public _price = 0.001 ether;
 
     // The contract can be "paused" in case of emergency by setting this variable to `true`.
     bool public _paused;
@@ -40,14 +40,14 @@ contract WNC is ERC721Enumerable, Ownable {
         This modifier will be applied to those functions that require the contract to not be paused to be executed.
      */
     modifier onlyWhenNotPaused() {
-        require(!paused, "This contract is currently paused and no action can be done on it");
+        require(!_paused, "This contract is currently paused and no action can be done on it");
         _;
     }
 
     /**
         Validations required for a successful mint.
 
-        @arg {*} bool forPresale - Determines if the restrictions to be validates should be those required for the presale or not. If false, it will validate as if the normal sale is on.
+        bool forPresale - Determines if the restrictions to be validates should be those required for the presale or not. If false, it will validate as if the normal sale is on.
      */
     modifier mintRestrictions(bool forPresale) {
         require(presaleStarted, "Sale has not yet officially started");
@@ -58,19 +58,19 @@ contract WNC is ERC721Enumerable, Ownable {
             require(block.timestamp >= presaleEnded, "Presale has not yet ended");
         }
 
-        require(tokensIds < maxTokenIds, "There's not more NFT available.");
+        require(tokenIds < maxTokenIds, "There's not more NFT available.");
         require(msg.value >= _price, "Ether sent is not correct");
 
         _;
     }
 
     /**
-    The constructor of the ERC721 Contract asks for a name for the token (WhitelistNFTCollection) and
-    a symbol (WNC). 
+        The constructor of the ERC721 Contract asks for a name for the token (WhitelistNFTCollection) and
+        a symbol (WNC). 
 
-    The constructor for this contract will take a `baseURI` that will define the `_baseTokenURI` variable.
-    
-    It also initializes the Whitelist interface using a previously deployed WhiteList Contract.
+        The constructor for this contract will take a `baseURI` that will define the `_baseTokenURI` variable.
+        
+        It also initializes the Whitelist interface using a previously deployed WhiteList Contract.
      */
     constructor(string memory baseURI, address whitelistContract) ERC721("WhitelistNFTCollection", "WNC") {
         _baseTokenURI = baseURI;
@@ -95,22 +95,22 @@ contract WNC is ERC721Enumerable, Ownable {
         Mint a new NFT token while presale is on.
      */
     function presaleMint() public payable onlyWhenNotPaused mintRestrictions(true) {
-        tokensIds += 1;
-        _safeMint(msg.sender, tokensIds);
+        tokenIds += 1;
+        _safeMint(msg.sender, tokenIds);
     }
 
     /**
         Mint a new NFT after the presale has ended.
      */
-    function mint() public payable onlyWhenNotPaused mintRestrictions {
+    function mint() public payable onlyWhenNotPaused mintRestrictions(false) {
         tokenIds += 1;
-        _safeMint(msg.sender, tokensIds);
+        _safeMint(msg.sender, tokenIds);
     }
 
     /**
         Changes the `pause` state of the contract. 
 
-        @arg {*} bool val - Value to which the `pause` variable will be set. If true, the contract will be "paused". Otherwise, it will work as normal.
+        bool val - Value to which the `pause` variable will be set. If true, the contract will be "paused". Otherwise, it will work as normal.
      */
     function setPaused(bool val) public onlyOwner {
         _paused = val;
