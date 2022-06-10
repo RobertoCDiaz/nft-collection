@@ -109,6 +109,8 @@ contract WNC is ERC721Enumerable, Ownable {
 
     /**
         Changes the `pause` state of the contract. 
+
+        @arg {*} bool val - Value to which the `pause` variable will be set. If true, the contract will be "paused". Otherwise, it will work as normal.
      */
     function setPaused(bool val) public onlyOwner {
         _paused = val;
