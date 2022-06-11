@@ -11,6 +11,7 @@ export default function Home() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [hasPresaleStarted, setHasPresaleStarted] = useState(false);
   const [hasPresaleEnded, setHasPresaleEnded] = useState(false);
+  const [presaleEndDate, setPresaleEndDate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [mintedCount, setMintedCount] = useState(0);
@@ -143,6 +144,7 @@ export default function Home() {
       const contract = await contractInstance();
 
       const endStamp = await contract.presaleEnded();
+      setPresaleEndDate(new Date(endStamp.toNumber()));
 
       const hasEndedYet = endStamp.lt(Math.floor(Date.now() / 1000));
 
@@ -225,7 +227,7 @@ export default function Home() {
             clearInterval(presaleEndedInterval);
           }
         }
-      }, 5 * 1000);
+      }, 1 * 1000);
 
       // when connecting to wallet for the first time, initiate an
       // interval that will update the count of minted nfts every 5 seconds
@@ -280,6 +282,18 @@ export default function Home() {
     </div>
   }
 
+  const TimeUntilPresaleEnd = () => {
+    const now = Date.now();
+
+    if (presaleEndDate == null || now > presaleEndDate) {
+      return <div style={{ visibility: 'none' }}></div>
+    }
+
+    return <div>
+      Presale ends in { (presaleEndDate - now) } seconds!
+    </div>
+  }
+
   return (
     <div className={styles.app}>
       <Head>
@@ -296,6 +310,7 @@ export default function Home() {
             {mintedCount}/20 have been minted
           </div>
           { StateButton() }
+          { TimeUntilPresaleEnd() }
         </div>
         <img className={styles.image} src="./nfts/1.svg" alt="NFTs logo" />
       </div>
