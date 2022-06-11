@@ -88,7 +88,7 @@ contract WNC is ERC721Enumerable, Ownable {
 
         // As the presale has now started, and the time it will last is 5 minutes,
         // the presaleEnded timestamp is set to this block's timestamp + 5 minutes.
-        presaleEnded = block.timestamp + 5 minutes;
+        presaleEnded = block.timestamp + 30 minutes;
     }
 
     /**
