@@ -1,6 +1,4 @@
-require("dotenv").config({ path: ".env" });
-
-export const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS;
+export const NFT_CONTRACT_ADDRESS = "0xb058eE6D021edee62a621682C35393eFD433b401";
 export const NFT_CONTRACT_ABI = [
     {
       "inputs": [
