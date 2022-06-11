@@ -54,6 +54,7 @@ contract WNC is ERC721Enumerable, Ownable {
 
         if (forPresale) {
             require(block.timestamp < presaleEnded, "Presale has ended");
+            require(whitelist.whitelistedAddresses(msg.sender), "You're not whitelisted!")
         } else {
             require(block.timestamp >= presaleEnded, "Presale has not yet ended");
         }
