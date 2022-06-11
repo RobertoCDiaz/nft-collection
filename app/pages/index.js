@@ -283,14 +283,15 @@ export default function Home() {
   }
 
   const TimeUntilPresaleEnd = () => {
-    const now = Date.now();
+    const now = Date.now() / 1000;
 
     if (presaleEndDate == null || now > presaleEndDate) {
       return <div style={{ visibility: 'none' }}></div>
     }
 
     return <div>
-      Presale ends in { (presaleEndDate - now) } seconds!
+      <p>Presale ends in { Math.floor(presaleEndDate - now) } seconds!</p>
+      <p>After that, anyone can mint!</p>
     </div>
   }
 
