@@ -13,5 +13,9 @@ a {
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: content-box;
+}
+
+#__next {
+  height: 100%;
 }

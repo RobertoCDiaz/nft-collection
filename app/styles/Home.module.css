@@ -1,0 +1,42 @@
+.app {
+    height: 100%;
+}
+
+.main {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5em;
+    margin: 0 auto;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    align-items: flex-start;
+}
+
+.button {
+    background-color: #2f2e41;
+    padding: 1em;
+    border-radius: 4px;
+    align-self: center;
+    color: white;
+    cursor: pointer;
+}
+
+.msgButton {
+    border: 2px solid #2f2e41;
+    color: #2f2e41;
+    padding: 1em;
+    border-radius: 4px;
+    align-self: center;
+    cursor: progress;
+}
+
+.image {
+    width: 20%;
+}
