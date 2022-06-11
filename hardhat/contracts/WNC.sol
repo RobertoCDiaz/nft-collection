@@ -125,6 +125,14 @@ contract WNC is ERC721Enumerable, Ownable {
         require(sent, "Failed to send Ether");
     }
 
+    /**
+        overrides the OpenZepellin's ERC721 implementation of the _baseURI function
+        which is an empty string by default
+     */
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseTokenURI;
+    }
+
     // function to be able to receive Ether. msg.data must be empty.
     receive() external payable {}
 
