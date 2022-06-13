@@ -25,6 +25,7 @@ You can also see the whole NFT collection [at OpenSea](https://testnets.opensea.
 ```bash
 git clone https://github.com/RobertoCDiaz/nft-collection
 cd nft-collection
+```
 
 2. Get into both the `app` and `hardhat` repositories and install their npm dependencies:
 ```bash
